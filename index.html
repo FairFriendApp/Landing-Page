@@ -1,1 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fair Friend – Find the Food, Fun & More!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --blue-dark: #1565C0;
+    --blue-mid: #42A5F5;
+    --blue-light: #90CAF9;
+    --white: #ffffff;
+  }
+
+  html, body {
+    min-height: 100%;
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: linear-gradient(180deg, #1565C0 0%, #42A5F5 55%, #90CAF9 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* ── Sparkles ── */
+  .sparkles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .sparkle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    animation: twinkle 2.5s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50%       { opacity: 1;   transform: scale(1.4); }
+  }
+
+  /* Auto-generate many sparkles via nth-child */
+  .sparkle:nth-child(1)  { top:4%;  left:6%;  width:5px; height:5px; animation-delay:0s; }
+  .sparkle:nth-child(2)  { top:8%;  left:80%; width:7px; height:7px; animation-delay:0.4s; }
+  .sparkle:nth-child(3)  { top:15%; left:22%; width:4px; height:4px; animation-delay:0.8s; }
+  .sparkle:nth-child(4)  { top:12%; left:55%; width:6px; height:6px; animation-delay:1.2s; }
+  .sparkle:nth-child(5)  { top:20%; left:92%; width:5px; height:5px; animation-delay:0.3s; }
+  .sparkle:nth-child(6)  { top:25%; left:40%; width:4px; height:4px; animation-delay:1.8s; }
+  .sparkle:nth-child(7)  { top:35%; left:10%; width:6px; height:6px; animation-delay:0.7s; }
+  .sparkle:nth-child(8)  { top:40%; left:70%; width:5px; height:5px; animation-delay:1.5s; }
+  .sparkle:nth-child(9)  { top:50%; left:30%; width:7px; height:7px; animation-delay:0.2s; }
+  .sparkle:nth-child(10) { top:55%; left:85%; width:4px; height:4px; animation-delay:1.0s; }
+  .sparkle:nth-child(11) { top:62%; left:15%; width:5px; height:5px; animation-delay:0.6s; }
+  .sparkle:nth-child(12) { top:68%; left:60%; width:6px; height:6px; animation-delay:1.3s; }
+  .sparkle:nth-child(13) { top:75%; left:45%; width:4px; height:4px; animation-delay:0.9s; }
+  .sparkle:nth-child(14) { top:80%; left:88%; width:7px; height:7px; animation-delay:1.7s; }
+  .sparkle:nth-child(15) { top:88%; left:25%; width:5px; height:5px; animation-delay:0.5s; }
+  .sparkle:nth-child(16) { top:92%; left:72%; width:4px; height:4px; animation-delay:1.1s; }
+  .sparkle:nth-child(17) { top:3%;  left:45%; width:6px; height:6px; animation-delay:2.0s; }
+  .sparkle:nth-child(18) { top:45%; left:50%; width:5px; height:5px; animation-delay:0.1s; }
+
+  /* ── Main container ── */
+  .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px;
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    min-height: 100vh;
+    gap: 0;
+  }
+
+  /* ── Logo ── */
+  .logo-wrap {
+    width: min(320px, 80vw);
+    height: min(320px, 80vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: logoIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    filter: drop-shadow(0 12px 32px rgba(0,0,0,0.3));
+    margin-bottom: 8px;
+  }
+  .logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  @keyframes logoIn {
+    from { opacity: 0; transform: scale(0.6) translateY(30px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* ── Tagline ── */
+  .tagline {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 700;
+    font-style: italic;
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    animation: fadeUp 0.6s 0.5s ease both;
+    line-height: 1.5;
+    margin-bottom: 48px;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Download section ── */
+  .download-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(13px, 3vw, 16px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s 0.8s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .store-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    animation: fadeUp 0.6s 1.0s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .store-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 16px;
+    padding: 14px 24px;
+    cursor: pointer;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+    min-width: 200px;
+  }
+  .store-btn:hover {
+    background: rgba(255,255,255,0.28);
+    border-color: rgba(255,255,255,0.7);
+    transform: translateY(-3px);
+  }
+  .store-btn:active {
+    transform: translateY(0);
+  }
+
+  .store-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    fill: white;
+  }
+
+  .store-text {
+    text-align: left;
+  }
+  .store-text .sub {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    display: block;
+  }
+  .store-text .name {
+    font-size: clamp(17px, 4vw, 21px);
+    font-weight: 800;
+    color: #ffffff;
+    display: block;
+    line-height: 1.2;
+    font-family: 'Nunito ExtraBold', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Coming soon badge ── */
+  .coming-soon {
+    margin-top: 32px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 600;
+    letter-spacing: 1px;
+    animation: fadeUp 0.6s 1.2s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  /* ── Responsive tweaks ── */
+  @media (max-width: 420px) {
+    .store-btn { min-width: 160px; padding: 12px 18px; }
+    .store-buttons { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Sparkle layer -->
+  <div class="sparkles">
+    <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+  </div>
+
+  <div class="container">
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <img src="https://raw.githubusercontent.com/FairFriendApp/Images/main/FF_Logo_With_Transparency.png" alt="Fair Friend Logo">
+    </div>
+
+    <!-- Tagline -->
+    <div class="tagline">Find the food, fun &amp; more<br>you're looking for!</div>
+
+    <!-- Download label -->
+    <div class="download-label">Download the App</div>
+
+    <!-- Store buttons -->
+    <div class="store-buttons">
+
+      <!-- App Store -->
+      <a href="#" class="store-btn">
+        <svg class="store-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        <div class="store-text">
+          <span class="sub">Download on the</span>
+          <span class="name">App Store</span>
+        </div>
+      </a>
+
+      <!-- Google Play -->
+      <a href="#" class="store-btn">
+        <svg class="store-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.18 23.76c.3.17.65.19.97.07l11.65-6.73-2.6-2.6-10.02 9.26zM.5 1.4C.19 1.74 0 2.24 0 2.87v18.26c0 .63.19 1.13.51 1.47l.08.07 10.23-10.23v-.24L.58 1.33.5 1.4zM20.9 10.61l-2.93-1.7-2.91 2.91 2.91 2.91 2.94-1.7c.84-.49.84-1.28-.01-1.42zM4.15.24l11.65 6.74-2.6 2.6L3.18.31a1.12 1.12 0 0 1 .97-.07z"/>
+        </svg>
+        <div class="store-text">
+          <span class="sub">Get it on</span>
+          <span class="name">Google Play</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="coming-soon">App coming soon — stay tuned!</div>
+
+  </div>
+
+</body>
+</html>
